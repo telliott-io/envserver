@@ -1,0 +1,25 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: envserver
+  labels:
+    app: envserver
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: envserver
+  template:
+    metadata:
+      labels:
+        app: envserver
+    spec:
+      containers:
+      - name: envserver
+        image: telliottio/envserver:tilt
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        env:
+        - name: TEST_VAR
+          value: "This is an example environment variable"
